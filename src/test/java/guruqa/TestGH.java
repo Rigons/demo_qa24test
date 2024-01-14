@@ -1,4 +1,4 @@
-package guru.qa;
+package guruqa;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Configuration;
