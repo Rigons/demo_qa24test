@@ -1,8 +1,10 @@
 package pages;
 
 import com.codeborne.selenide.SelenideElement;
+import com.codeborne.selenide.conditions.Hidden;
 import pages.components.CalendarComponent;
 
+import static com.codeborne.selenide.Condition.hidden;
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
@@ -24,11 +26,11 @@ public class RegistrationPage {
             cityInput = $("#city"),
 
             submitButton = $("#submit"),
-            tableName = $("#example-modal-sizes-title-lg"),
-            checkResultsTable = $(".table-responsive");
+            checkWindow = $(".modal-body");
 
 
     CalendarComponent calendarComponent = new CalendarComponent();
+
 
     public RegistrationPage openPage() {
         open("/automation-practice-form");
@@ -73,44 +75,49 @@ public class RegistrationPage {
                 .shouldHave(text(value));
         return this;
     }
-    public RegistrationPage setSubjects(String value){
+
+    public RegistrationPage setSubjects(String value) {
         subjectsInput.setValue(value).pressEnter();
         return this;
     }
-    public RegistrationPage setHobbies(String value){
+
+    public RegistrationPage setHobbies(String value) {
         hobbiesInput.$(byText(value)).click();
         return this;
     }
-    public RegistrationPage setPicture(String filename){
+
+    public RegistrationPage setPicture(String filename) {
         pictureInput.uploadFromClasspath(filename);
         return this;
     }
-    public RegistrationPage setAddres(String value){
+
+    public RegistrationPage setAddres(String value) {
         addresInput.setValue(value);
         return this;
     }
-    public RegistrationPage setState (String value) {
+
+    public RegistrationPage setState(String value) {
         stateInput.click();
         stateInput.$(byText(value)).click();
         return this;
     }
 
-    public RegistrationPage setCity (String value) {
+    public RegistrationPage setCity(String value) {
         cityInput.click();
         cityInput.$(byText(value)).click();
         return this;
     }
-    public RegistrationPage pressSubmit () {
+
+    public RegistrationPage pressSubmit() {
         submitButton.click();
         return this;
     }
-    public RegistrationPage resultTableName (String value) {
-        tableName.shouldHave(text(value));
+    public RegistrationPage checkResult(String value) {
+        checkWindow.shouldHave(text(value));
         return this;
     }
-    public RegistrationPage checkResults (String key, String value) {
-        checkResultsTable.shouldHave(text(key)).shouldHave(text(value));
+    public RegistrationPage registrationFail() {
+        checkWindow.shouldBe(hidden);
         return this;
     }
-
 }
