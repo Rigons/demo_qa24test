@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'io.qameta.allure' version '2.11.2'
 }
 
 group = 'guruqa'
@@ -9,10 +10,25 @@ repositories {
     mavenCentral()
 }
 
+allure {
+    report {
+        version.set('2.25.0')
+    }
+    adapter {  //отвечает за появление папки build/allure-results
+        aspectjWeaver.set(true)  //обработка аннотанции @Step
+        frameworks {
+            junit5 {
+                adapterVersion.set('2.25.0')  //версия интеграции фреймворка и allure
+            }
+        }
+    }
+}
+
 dependencies {
     testImplementation(
             'org.junit.jupiter:junit-jupiter:5.10.1',
-            'com.codeborne:selenide:7.0.4'
+            'com.codeborne:selenide:7.0.4',
+            'io.qameta.allure:allure-selenide:2.25.0'
     )
 }
 compileTestJava {
