@@ -4,8 +4,10 @@ import io.qameta.allure.Step;
 
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.byLinkText;
+import static com.codeborne.selenide.Selectors.withText;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
+import static guruqa.AllureTests.RESULT;
 
 public class WebStepsAllureDZ {
     @Step("Открываем главную страницу")
@@ -31,6 +33,6 @@ public class WebStepsAllureDZ {
 
     @Step("Проверка отображения счётчика багов")
     public void checktResult() {
-        $(".flex-auto").shouldBe(visible);
+        $(withText(RESULT)).shouldBe(visible);
     }
 }

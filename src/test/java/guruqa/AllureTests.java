@@ -1,27 +1,28 @@
 package guruqa;
 
-import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.logevents.SelenideLogger;
 import io.qameta.allure.selenide.AllureSelenide;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.byLinkText;
+import static com.codeborne.selenide.Selectors.withText;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
-import static com.codeborne.selenide.logevents.SelenideLogger.step;
+import static io.qameta.allure.Allure.step;;
 
 public class AllureTests {
     private static final String REPOSITORY = "google/googletest";
-    @BeforeAll
-    static void beforeAll() {
-        Configuration.browserSize = "1920x1080";
-        Configuration.holdBrowserOpen = true;
+    static final String RESULT = "[Bug]: FloatingEqMatcher doesn't work with const float value types";
+    @AfterEach
+    void afterEach() {
+        Selenide.closeWebDriver();
     }
     @Test
-    @DisplayName(("Проверка счётчика багов в репозитории"))
+    @DisplayName(("Проверка названия issue в репозитории"))
     void listenerTest(){
         SelenideLogger.addListener("allure", new AllureSelenide());
 
@@ -30,10 +31,10 @@ public class AllureTests {
         $("#query-builder-test").setValue("google/googletest").pressEnter();
         $(byLinkText("google/googletest")).click();
         $("#issues-tab").click();
-        $(".flex-auto").shouldBe(visible);
+        $(withText("[Bug]: FloatingEqMatcher doesn't work with const float value types")).shouldBe(visible);
     }
     @Test
-    @DisplayName(("Проверка счётчика багов в репозитории используя Lambda"))
+    @DisplayName(("Проверка названия issue в репозитории используя Lambda"))
     public void testLambdaStep(){
         SelenideLogger.addListener("allure", new AllureSelenide());
         step("Открытие главной страницы GitHub", () -> {
@@ -50,11 +51,11 @@ public class AllureTests {
             $("#issues-tab").click();
         });
         step("Проверка отображения счётчика багов", () -> {
-            $(".flex-auto").shouldBe(visible);
+            $(withText(RESULT)).shouldBe(visible);
         });
     }
     @Test
-    @DisplayName(("Проверка счётчика багов в репозитории используя steps"))
+    @DisplayName(("Проверка названия issue в репозитории используя steps"))
     void stepAnnotationTest(){
         SelenideLogger.addListener("allure", new AllureSelenide());
         WebStepsAllureDZ steps = new WebStepsAllureDZ();
