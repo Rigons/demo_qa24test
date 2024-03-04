@@ -12,7 +12,7 @@ import static com.codeborne.selenide.Selectors.byLinkText;
 import static com.codeborne.selenide.Selectors.withText;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
-import static io.qameta.allure.Allure.step;;
+import static io.qameta.allure.Allure.step;
 
 public class AllureTests {
     private static final String REPOSITORY = "google/googletest";
