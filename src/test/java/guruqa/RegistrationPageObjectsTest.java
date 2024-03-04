@@ -3,7 +3,7 @@ package guruqa;
 import org.junit.jupiter.api.Test;
 import pages.RegistrationPage;
 
-import static com.codeborne.selenide.Condition.text;
+import static guruqa.TestData.firstName;
 
 
 public class RegistrationPageObjectsTest extends TestBase {
@@ -13,7 +13,7 @@ public class RegistrationPageObjectsTest extends TestBase {
      @Test
     void successfulRegistrationTest() {
         registrationPage.openPage()
-                .setFirstName("Alex")
+                .setFirstName(firstName)
                 .setLastName("Egorov")
                 .setEmail("alex@egorov.com")
                 .setGender("Male")
