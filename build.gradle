@@ -52,6 +52,6 @@ task demoqa_test(type: Test) {
 }
 task simple_test(type: Test) {
     useJUnitPlatform {
-        includeTags("simple")
+        includeTags("simpleTest")
     }
 }
